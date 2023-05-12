@@ -1,0 +1,88 @@
+body {
+    background-color: #fcb58c;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    font-size: 50px;
+    color: #000000;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+td, th {
+    border: 3px solid black;
+    padding: 8px;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    font-size: 20px;
+    height: 30px;
+    letter-spacing: 1.5px;
+  }
+
+button {
+    background-color: #000000;
+    color: #fcb58c;
+    padding: 1px 12px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    font-size: 20px;
+    height: 30px;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.currentGuessBox {
+    background-color: #fcb58c;
+    color: #000000;
+    border: 10px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 15px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 70px;
+    height: 40px;
+    border-radius: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    font-size: 20px;
+}
+
+.popupContainer {
+    position: fixed;
+    justify-content: center;
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    background: #000000;
+    padding: 20px 20px 20px;
+    position: absolute;
+    background: #000000;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    font-size: 30px;
+    color: #fcb58c;
+    display: none;
+    left: 40%;
+    top: 40%;
+}
+
+.content {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}

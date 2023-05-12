@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Number Guessing Game">
+        <title>Number Guessing Game</title>
+        <link rel="stylesheet" href="styles.css">
+        <script>
+            if(localStorage.getItem("previousGuess") === null) {
+                localStorage.setItem("previousGuess", JSON.stringify([]));
+                localStorage.setItem("lives", JSON.stringify(10));
+                localStorage.setItem("userGuess", JSON.stringify([]));
+                localStorage.setItem("answer", JSON.stringify(generateNumber()));
+            } 
+            let previousGuess = JSON.parse(localStorage.getItem("previousGuess"));
+            let lives = JSON.parse(localStorage.getItem("lives"));
+            let userGuess = [];
+
+            const answer = JSON.parse(localStorage.getItem("answer"));
+            const answerStr = answer.toString();
+
+
+            // Function that inserts the user guess
+            function insertIntoPreviousGuess(value) {
+                previousGuess.push(value);
+                console.log(value);
+                userGuess.splice(0, userGuess.length)
+            }
+
+
+            // Function that outputs the previous guesses
+            function outputPreviousGuess(index) {
+                if(previousGuess[index] === undefined || previousGuess.length < index) {
+                    document.write(" ");
+                }
+                else {
+                    document.write(previousGuess[index]);
+                }
+            }
+
+
+            // Function that returns the number of correct numbers
+            function outputCorrectNumber(index) {
+                if(previousGuess[index] === undefined || previousGuess.length < index) {
+                    document.write(" ");
+                }
+                else {
+                    let correctNumbers = 0;
+                    let guess = previousGuess[index];
+                    for(let i = 0; i < 4; i++) {
+                        for(let j = 0; j < 4; j++) {
+                            if(guess[i] === answerStr[j]) {
+                                correctNumbers++;
+                            }
+                        }
+                    }
+                   document.write(correctNumbers);
+                }
+            }
+
+
+            // Function that returns the number of correct positions
+            function outputCorrectPosition(index) {
+                if(previousGuess[index] === undefined || previousGuess.length < index) {
+                    document.write(" ");
+                }
+                else {
+                    let correctPositions = 0;
+                    let guess = previousGuess[index];
+                    for(let i = 0; i < 4; i++) {
+                        if(guess[i] === answerStr[i]) {   
+                            correctPositions++;
+                        }
+                    }
+                    document.write(correctPositions);
+                }
+            }
+
+
+            // Function that inputs a number into the userGuess array
+            function inputIntoCurrentGuess(number) {
+                if(userGuess.length < 4) {
+                    for(let i = 0; i<userGuess.length; i++) {
+                        if(userGuess[i] === number) {
+                            return;
+                        }
+                    }
+                    userGuess.push(number);
+                }
+            }
+
+
+            // Function that submits the user guess and edits the lives
+            function submit() {
+                if (userGuess.length === 4) {
+                    let value = "";
+                    for(let i = 0; i < userGuess.length; i++) {
+                        value += userGuess[i];
+                    }
+                    if(value === answerStr){
+                        insertIntoPreviousGuess(value);
+                        openWinPopup();
+                        return;
+                    }
+                    else {
+                        insertIntoPreviousGuess(value);
+                        lives--;
+                        localStorage.setItem("lives", JSON.stringify(lives));
+                        localStorage.setItem("previousGuess", JSON.stringify(previousGuess));
+                        localStorage.setItem("userGuess", JSON.stringify(userGuess));
+                        if(lives <= 0) {
+                            openLosePopup();
+                            return;
+                        }
+                        window.location.reload();
+                    }
+                }
+            }
+
+
+            // Function that removes the last number added
+            function remove() {
+                if(userGuess.length > 0) {
+                    userGuess.pop();
+                }
+            }
+
+
+            // Function that outputs currentGuess
+            function outputCurrentGuess() {
+                let value = "";
+                for(let i = 0; i < userGuess.length; i++) {
+                    value += userGuess[i];
+                }
+                const container = document.getElementById("currentGuess");
+                container.innerHTML = value;
+            }
+
+
+            // Function that randomly generates a number
+            function generateNumber() {
+                let randomNum = Math.floor(Math.random() * (9876 - 1234 + 1)) + 1234;
+                randomNumStr = randomNum.toString();
+
+
+                for(let i = 0; i < 4; i++) {
+                    for(let j = i + 1; j < 4; j++) {
+                        if(randomNumStr[i] === randomNumStr[j]) {
+                            randomNum = parseInt(randomNumStr);
+                            if(j === 1) {
+                                randomNum += 100;
+                                i = 0;
+                                j = 0;
+                            } else if(j === 2) {
+                                randomNum += 10;
+                                i = 0;
+                                j = 0;
+                            } else if(j === 3) {
+                                randomNum += 1;
+                                i = 0;
+                                j = 0;
+                            }
+                            randomNumStr = randomNum.toString();
+                        }
+                    }
+                }
+                randomNum = parseInt(randomNumStr);
+                return randomNum;
+            }
+
+
+            // Function that opens a popup
+            function openWinPopup() {
+                popupContainer = document.getElementById("winPopup");
+                popupContainer.style.display = "block";
+            }
+
+
+            // Function that closes a popup
+            function closeWinPopup() {
+                popupContainer = document.getElementById("winPopup");
+                popupContainer.style.display = "none";
+                localStorage.clear();
+                location.reload();  
+            }
+
+
+            // Function that opens a popup
+            function openLosePopup() {
+                popupContainer = document.getElementById("losePopup");
+                popupContainer.style.display = "block";
+            }
+
+
+            // Function that closes a popup
+            function closeLosePopup() {
+                popupContainer = document.getElementById("losePopup");
+                popupContainer.style.display = "none";
+                localStorage.clear();
+                location.reload();  
+            }
+        </script>
+    </head> 
+    <body>
+        <div class="popupContainer" id="winPopup">
+            <div class="content">
+                <p1>Congratulations You Win!!!</p1>
+                <br>
+                <p1>The correct number is</p1>
+                <br>
+                <script>document.write(answer);</script>
+                <br>
+                <button onclick="closeWinPopup()">Play Again</button>
+            </div>
+        </div>
+
+        <div class="popupContainer" id="losePopup">
+            <div class="content">
+                <p1>The correct number is</p1>
+                <br>
+                <script>document.write(answer);</script>
+                <br>
+                <button onclick="closeLosePopup()">Play Again</button>
+            </div>
+        </div>
+        
+        <h1>Number Guessing Game</h1>
+        
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Your Guess</th>
+                        <th>Correct Numbers</th>
+                        <th>Correct Positions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><script>outputPreviousGuess(0)</script></td>
+                        <td><script>outputCorrectNumber(0)</script></td>
+                        <td><script>outputCorrectPosition(0)</script></td>
+                    </tr>
+                    <tr>
+                        <td><script>outputPreviousGuess(1)</script></td>
+                        <td><script>outputCorrectNumber(1)</script></td>
+                        <td><script>outputCorrectPosition(1)</script></td>
+                    </tr>
+                    <tr>
+                        <td><script>outputPreviousGuess(2)</script></td>
+                        <td><script>outputCorrectNumber(2)</script></td>
+                        <td><script>outputCorrectPosition(2)</script></td>
+                    </tr>
+                    <tr>
+                        <td><script>outputPreviousGuess(3)</script></td>
+                        <td><script>outputCorrectNumber(3)</script></td>
+                        <td><script>outputCorrectPosition(3)</script></td>
+                    </tr>
+                    <tr>
+                        <td><script>outputPreviousGuess(4)</script></td>
+                        <td><script>outputCorrectNumber(4)</script></td>
+                        <td><script>outputCorrectPosition(4)</script></td>
+                    </tr>
+                    <tr>
+                        <td><script>outputPreviousGuess(5)</script></td>
+                        <td><script>outputCorrectNumber(5)</script></td>
+                        <td><script>outputCorrectPosition(5)</script></td>
+                    </tr>
+                    <tr>
+                        <td><script>outputPreviousGuess(6)</script></td>
+                        <td><script>outputCorrectNumber(6)</script></td>
+                        <td><script>outputCorrectPosition(6)</script></td>
+                    </tr>
+                    <tr>
+                        <td><script>outputPreviousGuess(7)</script></td>
+                        <td><script>outputCorrectNumber(7)</script></td>
+                        <td><script>outputCorrectPosition(7)</script></td>
+                    </tr>
+                    <tr>
+                        <td><script>outputPreviousGuess(8)</script></td>
+                        <td><script>outputCorrectNumber(8)</script></td>
+                        <td><script>outputCorrectPosition(8)</script></td>
+                    </tr>
+                    <tr>
+                        <td><script>outputPreviousGuess(9)</script></td>
+                        <td><script>outputCorrectNumber(9)</script></td>
+                        <td><script>outputCorrectPosition(9)</script></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="currentGuessBox">
+            <p id="currentGuess"></p>
+        </div>
+
+        <div class="buttons">
+            <button onclick="inputIntoCurrentGuess(0); outputCurrentGuess()">0</button>
+            <button onclick="inputIntoCurrentGuess(1); outputCurrentGuess()">1</button>
+            <button onclick="inputIntoCurrentGuess(2); outputCurrentGuess()">2</button>
+            <button onclick="inputIntoCurrentGuess(3); outputCurrentGuess()">3</button>
+            <button onclick="inputIntoCurrentGuess(4); outputCurrentGuess()">4</button>
+            <button onclick="inputIntoCurrentGuess(5); outputCurrentGuess()">5</button>
+            <button onclick="inputIntoCurrentGuess(6); outputCurrentGuess()">6</button>
+            <button onclick="inputIntoCurrentGuess(7); outputCurrentGuess()">7</button>
+            <button onclick="inputIntoCurrentGuess(8); outputCurrentGuess()">8</button>
+            <button onclick="inputIntoCurrentGuess(9); outputCurrentGuess()">9</button>
+            <button onclick="remove(); outputCurrentGuess()">Remove</button>
+            <br>
+            <button onclick="submit()">Submit</button>
+        </div>
+    </body>
+</html>
