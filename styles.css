@@ -15,6 +15,7 @@ table {
     max-width: 800px;
     margin: 0 auto;
     overflow: hidden;
+    table-layout: fixed;
 }
 
 td, th {
@@ -37,7 +38,22 @@ button {
     border-radius: 10px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
     font-size: 20px;
-    height: 30px;
+    height: 40px;
+    width: 60px;
+}
+
+.specialButton {
+    background-color: #000000;
+    color: #fcb58c;
+    padding: 1px 12px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    font-size: 20px;
+    height: 40px;
+    width: 110px;
 }
 
 .buttons {
@@ -59,11 +75,11 @@ button {
     height: 40px;
     border-radius: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
-    font-size: 20px;
+    font-size: 50px;
 }
 
 .popupContainer {
-    position: fixed;
+    position: relative;
     justify-content: center;
     width: 400px;
     height: 200px;
@@ -77,8 +93,9 @@ button {
     font-size: 30px;
     color: #fcb58c;
     display: none;
-    left: 40%;
-    top: 40%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .content {
