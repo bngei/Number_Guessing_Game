@@ -1,24 +1,69 @@
 body {
-    background-color: #fcb58c;
+    background-color: #3c3836;
+}
+
+body.darkMode {
+    background-color: #fbf1c7;
 }
 
 h1 {
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
     font-size: 50px;
-    color: #000000;
+    color: #699d6a;
+    letter-spacing: 2px;
+    cursor: default;
+    text-shadow:
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000; 
 }
 
-table {
+.changeThemeButton {
+    background-color: #3c3836;
+    padding: 1px 12px;
+    margin: 8px 0;
+    border: 3px black solid;
+    cursor: pointer;
+    border-radius: 10px;
+    height: 40px;
+    width: 60px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.changeThemeButton.darkMode {
+    background-color: #fbf1c7;
+    padding: 1px 12px;
+    margin: 8px 0;
+    border: 3px black solid;
+    cursor: pointer;
+    border-radius: 10px;
+    height: 40px;
+    width: 60px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.themeImage {
+    width: 32px;
+    height: 32px;
+}
+
+.table table {
     border-collapse: collapse;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
     overflow: hidden;
     table-layout: fixed;
+    cursor: default;
 }
 
-td, th {
+.table td, .table th {
     border: 3px solid black;
     padding: 8px;
     text-align: center;
@@ -26,11 +71,24 @@ td, th {
     font-size: 20px;
     height: 30px;
     letter-spacing: 1.5px;
-  }
+    color: #fbf1c7;
+}
+
+
+.table.darkMode td, .table.darkMode th {
+    border: 3px solid black;
+    padding: 8px;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    font-size: 20px;
+    height: 30px;
+    letter-spacing: 1.5px;
+    color: #3c3836;
+}
 
 button {
     background-color: #000000;
-    color: #fcb58c;
+    color: #699d6a;
     padding: 1px 12px;
     margin: 8px 0;
     border: none;
@@ -44,7 +102,7 @@ button {
 
 .specialButton {
     background-color: #000000;
-    color: #fcb58c;
+    color: #699d6a;
     padding: 1px 12px;
     margin: 8px 0;
     border: none;
@@ -61,8 +119,27 @@ button {
 }
 
 .currentGuessBox {
-    background-color: #fcb58c;
-    color: #000000;
+    background-color: #3c3836;
+    color: #fbf1c7;
+    border: 10px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 15px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 70px;
+    height: 40px;
+    border-radius: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    font-size: 30px;
+    cursor: default;
+}
+
+.currentGuessBox.darkMode {
+    background-color: #fbf1c7;
+    color: #3c3836;
     border: 10px solid black;
     display: flex;
     justify-content: center;
@@ -87,7 +164,6 @@ button {
     background: #000000;
     padding: 20px 20px 20px;
     position: absolute;
-    background: #000000;
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
     font-size: 30px;
