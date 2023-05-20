@@ -202,6 +202,17 @@ function closeLosePopup() {
 }
 
 
+// Function that checks if the answer is in the previousGuess array
+function checkAnswer() {
+    for(let i = previousGuess.length - 1; i >=0; i--) {
+        if(previousGuess[i] === answerStr) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 // Function to handle the keyboard input
 window.addEventListener('keydown', pressedKey);
 function pressedKey(event) {
@@ -215,8 +226,9 @@ function pressedKey(event) {
         remove();
         outputCurrentGuess();
     } else if(key === "Enter" && lives <= 0) {
-        closeWinPopup();
         closeLosePopup();
+    } else if(key === "Enter" && checkAnswer()) {
+        closeWinPopup();
     } else if(key === "Enter") {
         submit();
     }
