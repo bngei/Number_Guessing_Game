@@ -6,16 +6,21 @@
         <title>Number Guessing Game</title>
         <link rel="stylesheet" href="styles.css">
         <script>
+            // Check if the local storage is empty and if it is, initialize it
             if(localStorage.getItem("previousGuess") === null) {
                 localStorage.setItem("previousGuess", JSON.stringify([]));
                 localStorage.setItem("lives", JSON.stringify(10));
                 localStorage.setItem("userGuess", JSON.stringify([]));
                 localStorage.setItem("answer", JSON.stringify(generateNumber()));
+
+                
             } 
+
+
+            // If the local storage is not empty, we get the values from it
             let previousGuess = JSON.parse(localStorage.getItem("previousGuess"));
             let lives = JSON.parse(localStorage.getItem("lives"));
             let userGuess = [];
-
             const answer = JSON.parse(localStorage.getItem("answer"));
             const answerStr = answer.toString();
 
@@ -80,6 +85,11 @@
             // Function that inputs a number into the userGuess array
             function inputIntoCurrentGuess(number) {
                 if(userGuess.length < 4) {
+                    // The first number cannot be 0
+                    if(number === 0 && userGuess.length === 0) {
+                        return;
+                    }
+                    // Checks if the number is already in guess
                     for(let i = 0; i<userGuess.length; i++) {
                         if(userGuess[i] === number) {
                             return;
@@ -199,6 +209,59 @@
                 localStorage.clear();
                 location.reload();  
             }
+
+
+            // Event listener for the keyboard input
+            document.addEventListener('keydown', pressedKey);
+
+            // Function to handle the keyboard input
+            function pressedKey(event) {
+                const key = event.key;
+                const number = parseInt(key);
+
+                if (!isNaN(number)) {
+                    inputIntoCurrentGuess(number);
+                    outputCurrentGuess();
+                } else if(key === "Backspace") {
+                    remove();
+                    outputCurrentGuess();
+                } else if(key === "Enter") {
+                    submit();
+                }
+            }
+
+
+
+
+            function changeTheme() {
+
+                // Function that changes the theme
+                const body = document.querySelector('body');
+                const changeThemeButton = document.getElementsByClassName('changeThemeButton')[0];
+                const table = document.getElementsByClassName('table')[0];
+                const currentGuessBox = document.getElementsByClassName('currentGuessBox')[0];
+                const buttons = document.getElementsByClassName('buttons')[0];
+
+
+                body.classList.toggle('darkMode');
+                table.classList.toggle('darkMode');
+                currentGuessBox.classList.toggle('darkMode');
+                buttons.classList.toggle('darkMode');
+                changeThemeButton.classList.toggle('darkMode');
+
+
+                var imgElement = document.getElementsByClassName("changeThemeButton")[0];
+                var currentSrc = imgElement.getAttribute("src");
+
+                if (currentSrc === "Pictures/Dark Mode.png") {
+                    imgElement.setAttribute("src", "Pictures/Light Mode.png");
+                    console.log(imgElement);
+                } else {
+                    imgElement.setAttribute("src", "Pictures/Dark Mode.png");
+                    console.log(imgElement);
+                }
+
+            }
         </script>
     </head> 
     <body>
@@ -214,6 +277,7 @@
             </div>
         </div>
 
+
         <div class="popupContainer" id="losePopup">
             <div class="content">
                 <p1>The correct number is</p1>
@@ -223,10 +287,18 @@
                 <button onclick="closeLosePopup()">Play Again</button>
             </div>
         </div>
+
         
+
+
         <h1>Number Guessing Game</h1>
+            
+        <button class="changeThemeButton" onclick="changeTheme()">
+            <img class="themeImage" src="Pictures/Light Mode.png" alt="Theme Image">
+        </button>       
+
         
-        <div>
+        <div class="table">
             <table>
                 <thead>
                     <tr>
@@ -290,9 +362,11 @@
             </table>
         </div>
 
+
         <div class="currentGuessBox">
             <p id="currentGuess"></p>
         </div>
+
 
         <div class="buttons">
             <button onclick="inputIntoCurrentGuess(0); outputCurrentGuess()">0</button>
@@ -305,9 +379,9 @@
             <button onclick="inputIntoCurrentGuess(7); outputCurrentGuess()">7</button>
             <button onclick="inputIntoCurrentGuess(8); outputCurrentGuess()">8</button>
             <button onclick="inputIntoCurrentGuess(9); outputCurrentGuess()">9</button>
-            <button class="specialButton"onclick="remove(); outputCurrentGuess()">Remove</button>
+            <button class="specialButton" onclick="remove(); outputCurrentGuess()">Remove</button>
             <br>
-            <button class="specialButton"onclick="submit()">Submit</button>
+            <button class="specialButton" onclick="submit()">Submit</button>
         </div>
     </body>
 </html>
