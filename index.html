@@ -9,6 +9,7 @@
     </head> 
     <body>
         <div class="popupContainer" id="winPopup">
+            <button class="closeButton" onclick="closeWinPopup()">X</button>
             <div class="content">
                 <p1>Congratulations You Win!!!</p1>
                 <br>
@@ -16,18 +17,19 @@
                 <br>
                 <script>document.write(answer);</script>
                 <br>
-                <button class="playAgainButton" onclick="closeWinPopup()">Play Again</button>
+                <button class="playAgainButton" onclick="newGame()">Play Again</button>
             </div>
         </div>
 
 
         <div class="popupContainer" id="losePopup">
+            <button class="closeButton" onclick="closeLosePopup()">X</button>
             <div class="content">
                 <p1>The correct number is</p1>
                 <br>
                 <script>document.write(answer);</script>
                 <br>
-                <button class="playAgainButton" onclick="closeLosePopup()">Play Again</button>
+                <button class="playAgainButton" onclick="newGame()">Play Again</button>
             </div>
         </div>
 
