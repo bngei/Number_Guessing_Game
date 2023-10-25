@@ -141,7 +141,7 @@ function outputCurrentGuess() {
 // Function that randomly generates a number
 function generateNumber() {
     let randomNum = Math.floor(Math.random() * (9876 - 1234 + 1)) + 1234;
-    randomNumStr = randomNum.toString();
+    let randomNumStr = randomNum.toString();
 
 
     for(let i = 0; i < 4; i++) {
@@ -180,9 +180,7 @@ function openWinPopup() {
 // Function that closes a popup
 function closeWinPopup() {
     popupContainer = document.getElementById("winPopup");
-    popupContainer.style.display = "none";
-    localStorage.clear();
-    location.reload();  
+    popupContainer.style.display = "none"; 
 }
 
 
@@ -196,9 +194,7 @@ function openLosePopup() {
 // Function that closes a popup
 function closeLosePopup() {
     popupContainer = document.getElementById("losePopup");
-    popupContainer.style.display = "none";
-    localStorage.clear();
-    location.reload();  
+    popupContainer.style.display = "none";  
 }
 
 
@@ -210,6 +206,16 @@ function checkAnswer() {
         }
     }
     return false;
+}
+
+
+// Function that creates a new game
+function newGame() {
+    localStorage.setItem("previousGuess", JSON.stringify([]));
+    localStorage.setItem("lives", JSON.stringify(10));
+    localStorage.setItem("userGuess", JSON.stringify([]));
+    localStorage.setItem("answer", JSON.stringify(generateNumber()));
+    window.location.reload();
 }
 
 
