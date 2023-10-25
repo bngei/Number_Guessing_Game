@@ -172,7 +172,7 @@ button {
     position: relative;
     justify-content: center;
     width: 400px;
-    height: 200px;
+    height: 300px;
     border-radius: 10px;
     background: #000000;
     padding: 20px 20px 20px;
@@ -187,9 +187,20 @@ button {
     text-align: center;
 }
 
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #fbf1c7;
+    cursor: pointer;
+    background-color: #000000;
+    border: none;
+}
+
 
 .playAgainButton {
-    margin-top: 40px;
+    margin: 70px;
     width: 70px;
 }
 
@@ -198,4 +209,5 @@ button {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    margin: 50px;
 }
