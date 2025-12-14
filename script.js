@@ -19,7 +19,6 @@ const answerStr = answer.toString();
 // Function that inserts the user guess
 function insertIntoPreviousGuess(value) {
     previousGuess.push(value);
-    console.log(value);
     userGuess.splice(0, userGuess.length)
 }
 
@@ -259,13 +258,14 @@ function setTheme() {
     const table = document.getElementsByClassName('table')[0];
     const currentGuessBox = document.getElementsByClassName('currentGuessBox')[0];
     const buttons = document.getElementsByClassName('buttons')[0];
-
+    const jokeText = document.getElementById('jokeText');
 
     body.classList.toggle('darkMode');
     table.classList.toggle('darkMode');
     currentGuessBox.classList.toggle('darkMode');
     buttons.classList.toggle('darkMode');
     changeThemeButton.classList.toggle('darkMode');
+    jokeText.classList.toggle('darkMode');
 }
 
 
@@ -277,12 +277,15 @@ function changeTheme() {
     const table = document.getElementsByClassName('table')[0];
     const currentGuessBox = document.getElementsByClassName('currentGuessBox')[0];
     const buttons = document.getElementsByClassName('buttons')[0];
+    const jokeText = document.getElementById('jokeText');
+
 
     body.classList.toggle('darkMode');
     table.classList.toggle('darkMode');
     currentGuessBox.classList.toggle('darkMode');
     buttons.classList.toggle('darkMode');
     changeThemeButton.classList.toggle('darkMode');
+    jokeText.classList.toggle('darkMode');
 
 
     // THIS PART DOES NOT  WORK
@@ -298,10 +301,33 @@ function changeTheme() {
 
     // Changes the local storage to light mode or dark mode
     let activeTheme = localStorage.getItem("theme");
-    console.log(activeTheme);
     if(activeTheme === "lightMode") {
         localStorage.setItem("theme", "darkMode");
     } else {
         localStorage.setItem("theme", "lightMode");
     }
 }
+
+async function setupJoke() {
+    try {
+        const response = await fetch(
+            'https://api.api-ninjas.com/v1/jokes',
+            {
+                method: 'GET',
+                headers: {
+                    'X-Api-Key': 'irMZX7oJOUWkxE7XoKkfmg==J10H94Iok83CXDox'
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        document.getElementById('jokeText').textContent = data[0].joke;
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+setupJoke();
+setInterval(setupJoke, 10000);

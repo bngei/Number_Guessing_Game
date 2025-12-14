@@ -70,6 +70,26 @@ h1 {
 }
 
 
+#jokeText {
+    padding: 8px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    font-size: 20px;
+    height: 30px;
+    letter-spacing: 1.5px;
+    color: #fbf1c7;
+}
+
+
+#jokeText.darkMode {
+    padding: 8px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    font-size: 20px;
+    height: 30px;
+    letter-spacing: 1.5px;
+    color: #3c3836;
+}
+
+
 .table td, .table th {
     border: 3px solid black;
     padding: 8px;

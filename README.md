@@ -7,3 +7,5 @@ Constraints:
 - The number has to have 4 digits
 - The number does NOT start with 0
 - The number does NOT have any repeating numbers
+
+Have fun!
